@@ -1,0 +1,2 @@
+bucket_name = "game-bucket-bhaskar-uat"
+Environment = "uat"
