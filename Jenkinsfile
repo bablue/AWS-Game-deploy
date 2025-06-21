@@ -6,14 +6,16 @@ pipeline {
   }
 
   environment {
-    AWS_DEFAULT_REGION = "us-east-1"
+    PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
     TFVARS_FILE = "terraform.tfvars.${params.ENVIRONMENT}"
   }
 
   stages {
-    stage('Checkout') {
+    stage('Verify Terraform') {
       steps {
-        checkout scm
+        sh 'echo $PATH'
+        sh 'which terraform'
+        sh 'terraform -v'
       }
     }
 
@@ -35,7 +37,7 @@ pipeline {
 
     stage('Terraform Apply') {
       steps {
-        input message: "Approve apply for ${params.ENVIRONMENT}?"
+        input message: "Apply infrastructure to ${params.ENVIRONMENT}?", ok: "Yes, deploy"
         dir('infra') {
           sh "terraform apply -auto-approve -var-file=${TFVARS_FILE}"
         }
