@@ -9,3 +9,8 @@ variable "Environment" {
   default     = "Development"
   
 }
+
+variable "cloudfront_distribution_arn" {
+  description = "The ARN of the CloudFront distribution for OAC access"
+  type        = string
+}

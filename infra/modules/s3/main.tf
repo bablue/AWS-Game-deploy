@@ -29,22 +29,29 @@ resource "aws_s3_bucket_public_access_block" "private_access" {
   restrict_public_buckets = true
 }
 
-# resource "aws_s3_bucket_policy" "public_read" {
-#   bucket = aws_s3_bucket.game_bucket.id
-#   policy = data.aws_iam_policy_document.public_read.json
-# }
+resource "aws_s3_bucket_policy" "allow_cloudfront_oac" {
+  bucket = aws_s3_bucket.game_bucket.id
 
-# data "aws_iam_policy_document" "public_read" {
-#   statement {
-#     actions   = ["s3:GetObject"]
-#     resources = ["${aws_s3_bucket.game_bucket.arn}/*"]
-#     principals {
-#       type        = "AWS"
-#       identifiers = ["*"]
-#     }
-#     effect = "Allow"
-#   }
-# }
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid = "AllowCloudFrontServicePrincipalReadOnly"
+        Effect = "Allow"
+        Principal = {
+          Service = "cloudfront.amazonaws.com"
+        }
+        Action = "s3:GetObject"
+        Resource = "${aws_s3_bucket.game_bucket.arn}/*"
+        Condition = {
+          StringEquals = {
+            "AWS:SourceArn" = var.cloudfront_distribution_arn
+          }
+        }
+      }
+    ]
+  })
+}
 
 output "bucket_name" {
   value = aws_s3_bucket.game_bucket.bucket

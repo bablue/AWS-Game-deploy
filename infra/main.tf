@@ -4,6 +4,7 @@ module "s3" {
   # Pass variables as needed
   bucket_name = var.bucket_name
   Environment = var.Environment
+  cloudfront_distribution_arn = module.cloudfront.cloudfront_distribution_arn
 }
 
 module "cloudfront" {
