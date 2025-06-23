@@ -9,7 +9,7 @@ pipeline {
   environment {
     PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
     TFVARS_FILE = "terraform.tfvars.${params.ENVIRONMENT}"
-    # S3_BUCKET_NAME is set after infra apply, or you can hardcode mapping if needed
+    // S3_BUCKET_NAME is set after infra apply, or you can hardcode mapping if needed
   }
 
 
