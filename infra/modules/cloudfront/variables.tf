@@ -5,3 +5,8 @@ variable "s3_bucket_name" {
 variable "s3_website_endpoint" {
   type = string
 }
+
+variable "s3_bucket_domain_name" {
+  type = string
+  
+}

@@ -9,7 +9,9 @@ module "s3" {
 module "cloudfront" {
   source         = "./modules/cloudfront"
   s3_bucket_name = module.s3.bucket_name
-  s3_website_endpoint = module.s3.website_endpoint
+  # s3_website_endpoint = module.s3.website_endpoint
+  s3_website_endpoint = module.s3.bucket_regional_domain_name
+  s3_bucket_domain_name   = module.s3.bucket_regional_domain_name
 }
 
 output "cloudfront_domain_name" {
