@@ -11,6 +11,7 @@ pipeline {
     TFVARS_FILE = "terraform.tfvars.${params.ENVIRONMENT}"
     # S3_BUCKET_NAME is set after infra apply, or you can hardcode mapping if needed
   }
+  
 
   stages {
     stage('Verify Terraform') {
