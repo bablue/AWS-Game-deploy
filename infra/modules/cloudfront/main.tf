@@ -20,7 +20,7 @@ resource "aws_cloudfront_distribution" "static_site" {
     #   origin_protocol_policy = "http-only"
     #   origin_ssl_protocols   = ["TLSv1.2"]
     # }
-    s3_origin_config {} 
+    # s3_origin_config {} 
   }
 
   default_cache_behavior {
