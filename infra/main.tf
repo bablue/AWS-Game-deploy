@@ -5,3 +5,13 @@ module "s3" {
   bucket_name = var.bucket_name
   Environment = var.Environment
 }
+
+module "cloudfront" {
+  source         = "./modules/cloudfront"
+  s3_bucket_name = module.s3.bucket_name
+  s3_website_endpoint = module.s3.website_endpoint
+}
+
+output "cloudfront_domain_name" {
+  value = module.cloudfront.domain_name
+}
